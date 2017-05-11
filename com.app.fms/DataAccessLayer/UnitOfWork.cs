@@ -25,6 +25,14 @@ namespace DataAccessLayer
         private GenericRepository<EmployeeSalaryDetails> _EmployeeSalaryDetailsRepository;
         private GenericRepository<ClientInformation> _ClientInformationRepository;
         private GenericRepository<BillingDetails> _BillingDetailsRepository;
+        private GenericRepository<ContractBilling> _ContractBillingRepository;
+        private GenericRepository<ContractHumanResourceNeeds> _ContractHumanResourceNeedsRepository;
+        private GenericRepository<ContractInformation> _ContractInformationRepository;
+        private GenericRepository<ContractInvoiceHeadingText> _ContractInvoiceHeadingTextRepository;
+        private GenericRepository<ContractPaysheet> _ContractPaysheetRepository;
+        private GenericRepository<Designations> _DesignationsRepository;
+        private GenericRepository<Attendance> _AttendanceRepository;
+
 
         #endregion
         #region Implementing IDiosposable...
@@ -179,6 +187,76 @@ namespace DataAccessLayer
                 if (this._BillingDetailsRepository == null)
                     this._BillingDetailsRepository = new GenericRepository<BillingDetails>(_context);
                 return _BillingDetailsRepository;
+            }
+        }
+
+        public GenericRepository<ContractBilling> ContractBillingRepository
+        {
+            get
+            {
+                if (this._ContractBillingRepository == null)
+                    this._ContractBillingRepository = new GenericRepository<ContractBilling>(_context);
+                return _ContractBillingRepository;
+            }
+        }
+
+        public GenericRepository<ContractHumanResourceNeeds> ContractHumanResourceNeedsRepository
+        {
+            get
+            {
+                if (this._ContractHumanResourceNeedsRepository == null)
+                    this._ContractHumanResourceNeedsRepository = new GenericRepository<ContractHumanResourceNeeds>(_context);
+                return _ContractHumanResourceNeedsRepository;
+            }
+        }
+
+        public GenericRepository<ContractInformation> ContractInformationRepository
+        {
+            get
+            {
+                if (this._ContractInformationRepository == null)
+                    this._ContractInformationRepository = new GenericRepository<ContractInformation>(_context);
+                return _ContractInformationRepository;
+            }
+        }
+
+        public GenericRepository<ContractInvoiceHeadingText> ContractInvoiceHeadingTextRepository
+        {
+            get
+            {
+                if (this._ContractInvoiceHeadingTextRepository == null)
+                    this._ContractInvoiceHeadingTextRepository = new GenericRepository<ContractInvoiceHeadingText>(_context);
+                return _ContractInvoiceHeadingTextRepository;
+            }
+        }
+
+        public GenericRepository<ContractPaysheet> ContractPaysheetRepository
+        {
+            get
+            {
+                if (this._ContractPaysheetRepository == null)
+                    this._ContractPaysheetRepository = new GenericRepository<ContractPaysheet>(_context);
+                return _ContractPaysheetRepository;
+            }
+        }
+
+        public GenericRepository<Designations> DesignationsRepository
+        {
+            get
+            {
+                if (this._DesignationsRepository == null)
+                    this._DesignationsRepository = new GenericRepository<Designations>(_context);
+                return _DesignationsRepository;
+            }
+        }
+
+        public GenericRepository<Attendance> AttendanceRepository
+        {
+            get
+            {
+                if (this._AttendanceRepository == null)
+                    this._AttendanceRepository = new GenericRepository<Attendance>(_context);
+                return _AttendanceRepository;
             }
         }
 

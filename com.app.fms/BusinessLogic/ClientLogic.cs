@@ -1,9 +1,6 @@
 ﻿using DataAccessLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using BusinessEntities;
 using DataAccessLayer.Models;
@@ -27,17 +24,18 @@ namespace BusinessLogic
         {
             try
             {
-                var client = Mapper.Map<ClientInformation>(clientEntity.clientInformation);
+                var client = Mapper.Map<ClientInformation>(clientEntity.ClientInformation);
                 client.IsActive = true;
-                client.CreatedDateTime = DateTime.Now;
-                client.UpdatedDateTim = DateTime.Now;
                 var i = _unitOfWork.ClientInformationRepository.GetCount() + 1;
                 var clientId = "C" + i;
                 client.ClientId = clientId;
-                var billing = Mapper.Map<BillingDetails>(clientEntity.billingDetails);
-                billing.ClientId = clientId;
+                var billing = Mapper.Map<BillingDetails>(clientEntity.BillingDetails);
+                if(billing != null)
+                {
+                    billing.ClientId = clientId;
+                    _unitOfWork.BillingDetailsRepository.Insert(billing);
+                }
                 _unitOfWork.ClientInformationRepository.Insert(client);
-                _unitOfWork.BillingDetailsRepository.Insert(billing);
                 _unitOfWork.Save();
             }
             catch(Exception ex)
@@ -50,14 +48,13 @@ namespace BusinessLogic
         {
             try
             {
-
-
-                var clientInformation = _unitOfWork.ClientInformationRepository.GetSingle(c => c.ClientId == clientId);
-                var billingDetails = _unitOfWork.BillingDetailsRepository.GetSingle(b => b.ClientId == clientId);
+                var clientInformation = _unitOfWork.ClientInformationRepository.Get(c => c.ClientId == clientId);
+                var billingDetails = _unitOfWork.BillingDetailsRepository.Get(b => b.ClientId == clientId);
                 return new ClientEntity
                 {
-                    clientInformation = new ClientInformationEntity
+                    ClientInformation = new ClientInformationEntity
                     {
+                        Id = clientInformation.Id,
                         ClientId = clientInformation.ClientId,
                         Name = clientInformation.Name,
                         ShortName = clientInformation.ShortName,
@@ -69,20 +66,21 @@ namespace BusinessLogic
                         EmailId = clientInformation.EmailId,
                         FaxNo = clientInformation.FaxNo
                     },
-                    billingDetails = new BillingDetailsEntity
+                    BillingDetails = new BillingDetailsEntity
                     {
-                        LineOne = billingDetails.LineOne,
-                        LineTwo = billingDetails.LineTwo,
-                        LineThree = billingDetails.LineThree,
-                        LineFour = billingDetails.LineFour,
-                        LineFive = billingDetails.LineFive,
-                        LineSix = billingDetails.LineSix,
-                        Description = billingDetails.Description,
-                        SubUnit = billingDetails.SubUnit,
-                        MainUnit = billingDetails.MainUnit,
-                        Invoice = billingDetails.Invoice,
-                        PaySheet = billingDetails.PaySheet,
-                        Location = billingDetails.Location
+                        Id = (billingDetails == null)? 0: billingDetails.Id,
+                        LineOne = billingDetails?.LineOne,
+                        LineTwo = billingDetails?.LineTwo,
+                        LineThree = billingDetails?.LineThree,
+                        LineFour = billingDetails?.LineFour,
+                        LineFive = billingDetails?.LineFive,
+                        LineSix = billingDetails?.LineSix,
+                        Description = billingDetails?.Description,
+                        SubUnit = billingDetails?.SubUnit,
+                        MainUnit = billingDetails?.MainUnit,
+                        Invoice = billingDetails?.Invoice,
+                        Paysheet = billingDetails?.PaySheet,
+                        Location = billingDetails?.Location
                     }
                 };
             }
@@ -102,11 +100,11 @@ namespace BusinessLogic
                 {
                     clientResults.Add(new ClientSearchResults
                     {
+                        Id = client.Id,
                         ClientId = client.ClientId,
-                        Name = client.Name,
-                        Segment = client.Segment,
-                        PhoneNos = client.PhoneNos,
-                        EmailId = client.EmailId
+                        ClientName = client.Name,
+                        PhoneNo = client.PhoneNos,
+                        Status = client.IsActive ? "Active" : "Inactive"
                     });
                 }
                 return clientResults;
@@ -121,26 +119,23 @@ namespace BusinessLogic
         {
             try
             {
-                int Id = 0;
-                var clientInformation = Mapper.Map<ClientInformation>(clientEntity.clientInformation);
-                var billingDetails = Mapper.Map<BillingDetails>(clientEntity.billingDetails);
-                using (var context = new FMSGlobalDbContext())
+                var _clientInformation = Mapper.Map<ClientInformation>(clientEntity.ClientInformation);
+                var _billingDetails = Mapper.Map<BillingDetails>(clientEntity.BillingDetails);
+                _billingDetails.ClientId = _clientInformation.ClientId;
+                _clientInformation.IsActive = true;
+                _unitOfWork.ClientInformationRepository.Update(_clientInformation);
+                if(_billingDetails != null)
                 {
-                    var clientList = context.ClientInformation.ToList();
-                    foreach (var client in clientList)
+                    _billingDetails.ClientId = _clientInformation.ClientId;
+                    if(_billingDetails.Id == 0)
                     {
-                        if (client.ClientId == clientEntity.clientInformation.ClientId)
-                        {
-                            Id = client.Id;
-                            break;
-                        }
+                        _unitOfWork.BillingDetailsRepository.Insert(_billingDetails);
+                    }
+                    else
+                    {
+                        _unitOfWork.BillingDetailsRepository.Update(_billingDetails);
                     }
                 }
-                clientInformation.Id = Id;
-                clientInformation.UpdatedDateTim = DateTime.Now;
-                billingDetails.Id = Id;
-                _unitOfWork.ClientInformationRepository.Update(clientInformation);
-                _unitOfWork.BillingDetailsRepository.Update(billingDetails);
                 _unitOfWork.Save();
             }
             catch(Exception ex)
@@ -153,7 +148,7 @@ namespace BusinessLogic
         {
             try
             {
-                var client = _unitOfWork.ClientInformationRepository.GetSingle(c => c.ClientId == clientId);
+                var client = _unitOfWork.ClientInformationRepository.Get(c => c.ClientId == clientId);
                 client.IsActive = false;
                 _unitOfWork.ClientInformationRepository.Update(client);
                 _unitOfWork.Save();

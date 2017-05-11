@@ -1,6 +1,7 @@
-﻿securityApp.controller('ClientManagementController', function ($scope, $window, $location, ClientManagementService) {
+﻿securityApp.controller('ClientManagementController', function ($scope, $window, $location, ngNotify,ClientManagementService) {
     $scope.clientSearchText;
     var clientsList;
+    $scope.selectedClient = null;
     $scope.clientsGrid = {
         enableSorting: true,
         paginationPageSizes: [25, 50, 100],
@@ -30,43 +31,77 @@
         }
     };
 
-    ClientManagementService.getAllClients().then(function (data) {
-        console.log(data);
-        clientsList = data;
-        $scope.clientsGrid.data = data;
-        console.log('data :'+$scope.clientsGrid.data);
-        $scope.clientsGrid.columnDefs = [
-            { name: 'Name', field: 'Name' },
-            { name: 'gender', field: 'gender' },
-            { name: 'company', field: 'company' },
-            {
-                name: 'Actions',
-                cellTemplate:
-                        '<center><div class="ui-grid-cell"><div class="ui-grid-cell-contents" style="text-align:center">' +
-                            '<button href="#" class="btn btn-primary btn-xs" ng-click="grid.appScope.ViewClient(row.entity)"><i class="fa fa-folder"></i> View </button>' +
-                        ' <button href="#" class="btn btn-info btn-xs" ng-click="grid.appScope.EditClient(row.entity)"><i class="fa fa-pencil"></i> Edit </button>' +
-                        '<button href="#" class="btn btn-danger btn-xs" data-title="Delete"  data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o"></i> Delete </button>' +
-                            '</div></div></center>'
+    var loadClients = function(){
+        ClientManagementService.getAllClients().then(function (data) {
+            if (data != null) {
+                console.log(data);
+                clientsList = data;
+                $scope.clientsGrid.data = data;
+                console.log('data :' + $scope.clientsGrid.data);
+                $scope.clientsGrid.columnDefs = [
+                    { name: 'ClientId', field: 'ClientId' },
+                    { name: 'ClientName', field: 'ClientName' },
+                    { name: 'City', field: 'City' },
+                    { name: 'PhoneNo', field: 'PhoneNo' },
+                    { name: 'Status', field: 'Status' },
+                    {
+                        name: 'Actions',
+                        cellTemplate:
+                                '<center><div class="ui-grid-cell"><div class="ui-grid-cell-contents" style="text-align:center">' +
+                                    '<button href="#" class="btn btn-primary btn-xs" ng-click="grid.appScope.ViewClient(row.entity)"><i class="fa fa-folder"></i> View </button>' +
+                                ' <button href="#" class="btn btn-info btn-xs" ng-click="grid.appScope.EditClient(row.entity)"><i class="fa fa-pencil"></i> Edit </button>' +
+                                '<button href="#" class="btn btn-danger btn-xs" data-title="Delete" ng-click="grid.appScope.delete(row.entity)"  data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o"></i> Delete </button>' +
+                                    '</div></div></center>'
+                    }
+                ];
             }
-        ];
+            else {
+                ngNotify.set('Clients loading failed',
+                          {
+                              theme: 'pure',
+                              position: 'top',
+                              type: 'success',
+                              button: 'true',
+                              sticky: 'false',
+                          });
+            }
     });
-
+    };
+loadClients();
     $scope.EditClient = function (user) {
-        $location.path('/EditClient/' + user.name);
+        $location.path('/EditClient/' + user.ClientId);
     };
     $scope.ViewClient = function (user) {
-        $location.path('/ViewClient/' + user.name);
+        $location.path('/ViewClient/' + user.ClientId);
+    };
+    $scope.delete = function(client){
+
+        $scope.selectedClient = client;
     };
     $scope.DeleteClient = function () {
-        ClientManagementService.deleteClient($scope.selectedUser.name).then(function () {
-            ngNotify.set('Client deleted successfully',
-                    {
-                        theme: 'pure',
-                        position: 'top',
-                        type: 'success',
-                        button: 'true',
-                        sticky: 'false',
-                    });
+        ClientManagementService.deleteClient($scope.selectedClient.ClientId).then(function (data) {
+            if (data != null) {
+                ngNotify.set('Client deleted successfully',
+                   {
+                       theme: 'pure',
+                       position: 'top',
+                       type: 'success',
+                       button: 'true',
+                       sticky: 'false',
+                   });
+            }
+            else {
+                ngNotify.set('Client deletion failed',
+                   {
+                       theme: 'pure',
+                       position: 'top',
+                       type: 'success',
+                       button: 'true',
+                       sticky: 'false',
+                   });
+            }
+           
+                    loadClients();  
         });
 
     };

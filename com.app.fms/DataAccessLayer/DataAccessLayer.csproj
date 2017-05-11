@@ -88,9 +88,68 @@
     <Compile Include="Migrations\201705010809540_ClientIdIsRequired.Designer.cs">
       <DependentUpon>201705010809540_ClientIdIsRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705031054337_CreatedTablesForContracts.cs" />
+    <Compile Include="Migrations\201705031054337_CreatedTablesForContracts.Designer.cs">
+      <DependentUpon>201705031054337_CreatedTablesForContracts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705031057349_AddedNewColumnsToContractInformation.cs" />
+    <Compile Include="Migrations\201705031057349_AddedNewColumnsToContractInformation.Designer.cs">
+      <DependentUpon>201705031057349_AddedNewColumnsToContractInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705041403524_ChangesInContractTables.cs" />
+    <Compile Include="Migrations\201705041403524_ChangesInContractTables.Designer.cs">
+      <DependentUpon>201705041403524_ChangesInContractTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705041426494_UpdateContractsTableColumnstoDateTimeType.cs" />
+    <Compile Include="Migrations\201705041426494_UpdateContractsTableColumnstoDateTimeType.Designer.cs">
+      <DependentUpon>201705041426494_UpdateContractsTableColumnstoDateTimeType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705041450567_RemovedCreatedDateTimeinContracts.cs" />
+    <Compile Include="Migrations\201705041450567_RemovedCreatedDateTimeinContracts.Designer.cs">
+      <DependentUpon>201705041450567_RemovedCreatedDateTimeinContracts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705041455516_RemovedCreatedDateTimeInAllTables.cs" />
+    <Compile Include="Migrations\201705041455516_RemovedCreatedDateTimeInAllTables.Designer.cs">
+      <DependentUpon>201705041455516_RemovedCreatedDateTimeInAllTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705050941225_AddedDesignationsTable.cs" />
+    <Compile Include="Migrations\201705050941225_AddedDesignationsTable.Designer.cs">
+      <DependentUpon>201705050941225_AddedDesignationsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705051015066_AddedContractIdToEmployee.cs" />
+    <Compile Include="Migrations\201705051015066_AddedContractIdToEmployee.Designer.cs">
+      <DependentUpon>201705051015066_AddedContractIdToEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705070704475_ChangedDateTimeToString.cs" />
+    <Compile Include="Migrations\201705070704475_ChangedDateTimeToString.Designer.cs">
+      <DependentUpon>201705070704475_ChangedDateTimeToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705070711432_ConvertedAllDateTimeToString.cs" />
+    <Compile Include="Migrations\201705070711432_ConvertedAllDateTimeToString.Designer.cs">
+      <DependentUpon>201705070711432_ConvertedAllDateTimeToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705070834461_ChangingDateTimeToStringInPreviousExpTable.cs" />
+    <Compile Include="Migrations\201705070834461_ChangingDateTimeToStringInPreviousExpTable.Designer.cs">
+      <DependentUpon>201705070834461_ChangingDateTimeToStringInPreviousExpTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101502323_AddedNewTableForAttendance.cs" />
+    <Compile Include="Migrations\201705101502323_AddedNewTableForAttendance.Designer.cs">
+      <DependentUpon>201705101502323_AddedNewTableForAttendance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101550075_ChangedColNameFromIsAttendendtoAttendend.cs" />
+    <Compile Include="Migrations\201705101550075_ChangedColNameFromIsAttendendtoAttendend.Designer.cs">
+      <DependentUpon>201705101550075_ChangedColNameFromIsAttendendtoAttendend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\BillingDetails.cs" />
     <Compile Include="Models\ClientInformation.cs" />
+    <Compile Include="Models\ContractBilling.cs" />
+    <Compile Include="Models\ContractHumanResourceNeeds.cs" />
+    <Compile Include="Models\ContractInformation.cs" />
+    <Compile Include="Models\ContractInvoiceHeadingText.cs" />
+    <Compile Include="Models\ContractPaysheet.cs" />
+    <Compile Include="Models\Designations.cs" />
     <Compile Include="Models\EmployeeAddressDetails.cs" />
     <Compile Include="Models\EmployeeBankDetails.cs" />
     <Compile Include="Models\EmployeeEducationDetails.cs" />
@@ -138,6 +197,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705010809540_ClientIdIsRequired.resx">
       <DependentUpon>201705010809540_ClientIdIsRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705031054337_CreatedTablesForContracts.resx">
+      <DependentUpon>201705031054337_CreatedTablesForContracts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705031057349_AddedNewColumnsToContractInformation.resx">
+      <DependentUpon>201705031057349_AddedNewColumnsToContractInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705041403524_ChangesInContractTables.resx">
+      <DependentUpon>201705041403524_ChangesInContractTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705041426494_UpdateContractsTableColumnstoDateTimeType.resx">
+      <DependentUpon>201705041426494_UpdateContractsTableColumnstoDateTimeType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705041450567_RemovedCreatedDateTimeinContracts.resx">
+      <DependentUpon>201705041450567_RemovedCreatedDateTimeinContracts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705041455516_RemovedCreatedDateTimeInAllTables.resx">
+      <DependentUpon>201705041455516_RemovedCreatedDateTimeInAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705050941225_AddedDesignationsTable.resx">
+      <DependentUpon>201705050941225_AddedDesignationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705051015066_AddedContractIdToEmployee.resx">
+      <DependentUpon>201705051015066_AddedContractIdToEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705070704475_ChangedDateTimeToString.resx">
+      <DependentUpon>201705070704475_ChangedDateTimeToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705070711432_ConvertedAllDateTimeToString.resx">
+      <DependentUpon>201705070711432_ConvertedAllDateTimeToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705070834461_ChangingDateTimeToStringInPreviousExpTable.resx">
+      <DependentUpon>201705070834461_ChangingDateTimeToStringInPreviousExpTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101502323_AddedNewTableForAttendance.resx">
+      <DependentUpon>201705101502323_AddedNewTableForAttendance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101550075_ChangedColNameFromIsAttendendtoAttendend.resx">
+      <DependentUpon>201705101550075_ChangedColNameFromIsAttendendtoAttendend.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

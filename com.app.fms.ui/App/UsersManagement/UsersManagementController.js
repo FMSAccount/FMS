@@ -31,48 +31,80 @@
         }
     };
 
+var loadUserGrid = function(){
     UserManagementService.getAllUsers().then(function (data) {
-        usersList = data;
-        var EmpId = 0;
-        $scope.usersGrid.data = data;
-        var newColumn = {
-            name: 'Actions',
-            cellTemplate:
-                '<center><div class="ui-grid-cell"><div class="ui-grid-cell-contents" style="text-align:center">' +
-                    '<button href="#" class="btn btn-primary btn-xs" ng-click="grid.appScope.ViewUser(row.entity)"><i class="fa fa-folder"></i> View </button>' +
-                    ' <button href="#" class="btn btn-info btn-xs" ng-click="grid.appScope.EditUser(row.entity)"><i class="fa fa-pencil"></i> Edit </button>' +
-                    '<button href="#" class="btn btn-danger btn-xs" ng-click="selectedUser = row.entity" data-title="Delete"  data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o"></i> Delete </button>' +
-                    '</div></div></center>'
-        };
-       
-        $scope.usersGrid.columnDefs = [
-          { name: 'Employee Id', field: 'EmpId' },
-            { name: 'Employee Name', field: 'EmployeeName' },
-            { name: 'SitePosted To', field: 'SitePostedTo' },
-        { name: 'Status', feild: 'Status' },
-            { name: 'Designation', feild: 'Designation' },
-            { name: 'Date Of Joining', feild: 'DateOfJoining' }
-        ];
-        $scope.usersGrid.columnDefs.push(newColumn);
-    });
+        if (data != null) {
+            usersList = data;
+            var EmpId = 0;
+            $scope.usersGrid.data = data;
+            var newColumn = {
+                name: 'Actions',
+                cellTemplate:
+                    '<center><div class="ui-grid-cell"><div class="ui-grid-cell-contents" style="text-align:center">' +
+                        '<button href="#" class="btn btn-primary btn-xs" ng-click="grid.appScope.ViewUser(row.entity)"><i class="fa fa-folder"></i> View </button>' +
+                        ' <button href="#" class="btn btn-info btn-xs" ng-click="grid.appScope.EditUser(row.entity)"><i class="fa fa-pencil"></i> Edit </button>' +
+                        '<button href="#" class="btn btn-danger btn-xs" ng-click="grid.appScope.Delete(row.entity)" data-title="Delete"  data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o"></i> Delete </button>' +
+                        '</div></div></center>'
+            };
 
+            $scope.usersGrid.columnDefs = [
+              { name: 'Employee Id', field: 'EmpId' },
+                { name: 'Employee Name', field: 'EmployeeName' },
+                { name: 'SitePosted To', field: 'SitePostedTo' },
+            { name: 'Status', feild: 'Status' },
+                { name: 'Designation', feild: 'Designation' },
+                { name: 'Date Of Joining', feild: 'DateOfJoining' }
+            ];
+            $scope.usersGrid.columnDefs.push(newColumn);
+        }
+        else {
+            ngNotify.set('Employees loading failed',
+                      {
+                          theme: 'pure',
+                          position: 'top',
+                          type: 'success',
+                          button: 'true',
+                          sticky: 'false',
+                      });
+        }
+
+    });
+};
+loadUserGrid();
     $scope.ViewUser = function (user){
-        $location.path('/ViewUser/'+user.name);
+        $location.path('/ViewUser/'+user.EmpId);
     };
     $scope.EditUser = function (user) {
-        $location.path('/EditUser/' + user.name);
+        $location.path('/EditUser/' + user.EmpId);
+    };
+    $scope.Delete = function(user){
+        $scope.selectedUser = user;
     };
 
     $scope.DeleteUser = function () {
-        UserManagementService.deleteUser($scope.selectedUser.name).then(function() {
-            ngNotify.set('User deleted successfully',
-                    {
-                        theme: 'pure',
-                        position: 'top',
-                        type: 'success',
-                        button: 'true',
-                        sticky: 'false',
-                    });
+        UserManagementService.deleteUser($scope.selectedUser.EmpId).then(function (result) {
+            if (result != null) {
+                ngNotify.set('User deleted successfully',
+                        {
+                            theme: 'pure',
+                            position: 'top',
+                            type: 'success',
+                            button: 'true',
+                            sticky: 'false',
+                        });
+            }
+            else {
+                ngNotify.set('User deletion failed',
+                      {
+                          theme: 'pure',
+                          position: 'top',
+                          type: 'success',
+                          button: 'true',
+                          sticky: 'false',
+                      });
+            }
+loadUserGrid();
+                    
         });
     };
     $scope.updateUsersGrid = function () {

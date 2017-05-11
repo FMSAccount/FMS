@@ -21,21 +21,22 @@ namespace BusinessEntities.Employee
 
     public class EmployeePersonalInfoEntity
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string Title { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
         public string Gender { get; set; }
         public string MaritalStatus { get; set; }
         public string Status { get; set; }
         public string Qualification { get; set; }
         public string Designation { get; set; }
-        public DateTime DateOfInterview { get; set; }
-        public DateTime DateOfJoining { get; set; }
+        public string DateOfInterview { get; set; }
+        public string DateOfJoining { get; set; }
         public int PhoneNo { get; set; }
-        public DateTime DateOfLeaving { get; set; }
+        public string DateOfLeaving { get; set; }
         public string MotherTounge { get; set; }
         public string LanguagesKnown { get; set; }
         public string Nationality { get; set; }
@@ -52,17 +53,18 @@ namespace BusinessEntities.Employee
         public string GrossSalary { get; set; }
         public string PSARAEmpCode { get; set; }
         public string Email { get; set; }
-        public DateTime IdCardIssuedDate { get; set; }
-        public DateTime IdCardValidTill { get; set; }
+        public string IdCardIssuedDate { get; set; }
+        public string IdCardValidTill { get; set; }
         public int ClientEmployeeId { get; set; }
         public string PreviousEmployer { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreatedDateTime { get; set; }
-        public DateTime UpdatedDateTime { get; set; }
+        public string CreatedDateTime { get; set; }
+        public string UpdatedDateTime { get; set; }
     }
 
     public class EmployeeInfoEntity
     {
+        public int Id { get; set; }
         public string RefNameAndAddress1 { get; set; }
         public string RefNameAndAddress2 { get; set; }
         public string BloodGroup { get; set; }
@@ -76,6 +78,7 @@ namespace BusinessEntities.Employee
 
     public class EmployeePhysicalStandardEntity
     {
+        public int Id { get; set; }
         public int Height { get; set; }
         public int Weight { get; set; }
         public string HairColour { get; set; }
@@ -86,6 +89,7 @@ namespace BusinessEntities.Employee
 
     public class EmployeeAddressDetailsEntity
     {
+        public int Id { get; set; }
         public string TmpAddressLine1 { get; set; }
         public string TmpAddressLine2 { get; set; }
         public string TmpLandMark { get; set; }
@@ -103,24 +107,9 @@ namespace BusinessEntities.Employee
         public string PerPincode { get; set; }
     }
 
-    //public class EmployeeAddressDetailsEntity
-    //{
-    //    public AddressType AddressType { get; set; }
-    //    public string LandMark { get; set; }
-    //    public string VillageOrTown { get; set; }
-    //    public string PostOffice { get; set; }
-    //    public string Taluka { get; set; }
-    //    public string PoliceStation { get; set; }
-    //    public string State { get; set; }
-    //    public string District { get; set; }
-    //    public string Pincode { get; set; }
-    //    public DateTime DateSinceResiding { get; set; }
-    //    public int PeriodOfStay { get; set; }
-    //    public int Phone { get; set; }
-    //}
-
     public class EmployeeBankDetailsEntity
     {
+        public int Id { get; set; }
         public string BankName { get; set; }
         public int BankAccountNo { get; set; }
         public string BranchName { get; set; }
@@ -131,7 +120,7 @@ namespace BusinessEntities.Employee
         public int RegionCode { get; set; }
         public string InsuranceNominee { get; set; }
         public string BankCardReference { get; set; }
-        public DateTime NomineeDateOfBirth { get; set; }
+        public string NomineeDateOfBirth { get; set; }
         public string NomineeRelation { get; set; }
         public string InsuranceCover { get; set; }
         public int InsDebitAmount { get; set; }
@@ -140,6 +129,7 @@ namespace BusinessEntities.Employee
 
     public class EmployeeSalaryDetailsEntity
     {
+        public int Id { get; set; }
         public int AdditionalAmount { get; set; }
         public int FoodAllowance { get; set; }
         public string NoOfDays { get; set; }
@@ -166,7 +156,7 @@ namespace BusinessEntities.Employee
         public bool PFDeduct { get; set; }
         public bool PTDeduct { get; set; }
         public int EPFNo { get; set; }
-        public DateTime PFEnrollDate { get; set; }
+        public string PFEnrollDate { get; set; }
         public bool ESIDeduct { get; set; }
         public int ESINo { get; set; }
         public string ESIDispName { get; set; }
@@ -175,6 +165,7 @@ namespace BusinessEntities.Employee
 
     public class EmployeeProofsEntity
     {
+        public int Id { get; set; }
         public string AadharCardNumber { get; set; }
         public string AadharCardName { get; set; }
         public string DrivingLicenseNumber { get; set; }
@@ -204,21 +195,14 @@ namespace BusinessEntities.Employee
         public string OtherCardsName { get; set; }
     }
 
-
-    //public class EmployeeProofsEntity
-    //{
-    //    public ProofType ProofType { get; set; }
-    //    public int Number { get; set; }
-    //    public string KYCName { get; set; }
-    //}
-
     public class EmployeeExServiceEntity
     {
+        public int Id { get; set; }
         public bool EmpExService { get; set; }
         public int ServiceNo { get; set; }
         public int Rank { get; set; }
-        public DateTime DateOfEnrollment { get; set; }
-        public DateTime DateOfDischarge { get; set; }
+        public string DateOfEnrollment { get; set; }
+        public string DateOfDischarge { get; set; }
         public string Crops { get; set; }
         public string Trade { get; set; }
         public string MedicalCategory { get; set; }
@@ -230,7 +214,7 @@ namespace BusinessEntities.Employee
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime DateofBirth { get; set; }
+        public string DateofBirth { get; set; }
         public int Age { get; set; }
         public string RelationShip { get; set; }
         public string Occupation { get; set; }
@@ -263,11 +247,12 @@ namespace BusinessEntities.Employee
         public int YearsOfExperience { get; set; }
         public int PFNo { get; set; }
         public int ESINo { get; set; }
-        public DateTime DateOfResignation { get; set; }
+        public string DateOfResignation { get; set; }
     }
 
     public class EmployeePolicyRecordEntity
     {
+        public int Id { get; set; }
         public string PoliceVerificationNumber { get; set; }
         public bool IsVerfied { get; set; }
         public string NearestPoliceStation { get; set; }
