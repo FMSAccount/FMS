@@ -48,7 +48,7 @@ var loadUserGrid = function(){
             };
 
             $scope.usersGrid.columnDefs = [
-              { name: 'Employee Id', field: 'EmpId' },
+              { name: 'Employee Id', field: 'Id' },
                 { name: 'Employee Name', field: 'EmployeeName' },
                 { name: 'SitePosted To', field: 'SitePostedTo' },
             { name: 'Status', feild: 'Status' },
@@ -72,17 +72,17 @@ var loadUserGrid = function(){
 };
 loadUserGrid();
     $scope.ViewUser = function (user){
-        $location.path('/ViewUser/'+user.EmpId);
+        $location.path('/ViewUser/'+user.Id);
     };
     $scope.EditUser = function (user) {
-        $location.path('/EditUser/' + user.EmpId);
+        $location.path('/EditUser/' + user.Id);
     };
     $scope.Delete = function(user){
         $scope.selectedUser = user;
     };
 
     $scope.DeleteUser = function () {
-        UserManagementService.deleteUser($scope.selectedUser.EmpId).then(function (result) {
+        UserManagementService.deleteUser($scope.selectedUser.Id).then(function (result) {
             if (result != null) {
                 ngNotify.set('User deleted successfully',
                         {
